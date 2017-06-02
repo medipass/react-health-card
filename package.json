@@ -6,7 +6,7 @@
   "scripts": {
     "build-css": "node-sass-chokidar src/ -o lib/",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o lib/ --watch --recursive",
-    "test": "echo 'test'",
+    "test": "xo",
     "build": "rimraf lib && npm run test && npm run build-css && babel -d lib/ src/",
     "watch": "rimraf lib && npm run build-css && babel -d lib/ src/ --watch",
     "prepublish": "npm run build"
