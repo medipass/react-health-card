@@ -1,0 +1,75 @@
+{
+  "name": "react-health-card",
+  "version": "0.0.0",
+  "description": "An awesome react health card component.",
+  "main": "lib/index.js",
+  "scripts": {
+    "build-css": "node-sass-chokidar src/ -o lib/",
+    "watch-css": "npm run build-css && node-sass-chokidar src/ -o lib/ --watch --recursive",
+    "test": "echo 'test'",
+    "build": "rimraf lib && npm run test && npm run build-css && babel -d lib/ src/",
+    "watch": "rimraf lib && npm run build-css && babel -d lib/ src/ --watch",
+    "prepublish": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/medipass/react-health-card.git"
+  },
+  "keywords": [
+    "awesome",
+    "react",
+    "health-card",
+    "health",
+    "card",
+    "shit",
+    "hot",
+    "payment",
+    "medipass"
+  ],
+  "author": "Jake Moxey",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/medipass/react-health-card/issues"
+  },
+  "homepage": "https://github.com/medipass/react-health-card#readme",
+  "xo": {
+    "extends": "xo-react",
+    "parser": "babel-eslint",
+    "space": true,
+    "rules": {
+      "object-curly-spacing": [
+        "error",
+        "always"
+      ],
+      "react/react-in-jsx-scope": 0,
+      "react/no-danger": 0,
+      "react/forbid-component-props": 0
+    },
+    "globals": [
+      "window",
+      "navigator"
+    ]
+  },
+  "dependencies": {
+    "classnames": "^2.2.5",
+    "lodash": "^4.17.4",
+    "polished": "^1.1.3",
+    "prop-types": "^15.5.10",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "styled-components": "^2.0.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-eslint": "^7.2.3",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "eslint-config-xo-react": "^0.12.0",
+    "eslint-plugin-react": "^7.0.1",
+    "node-sass-chokidar": "0.0.2",
+    "rimraf": "^2.6.1",
+    "xo": "^0.18.2"
+  }
+}
