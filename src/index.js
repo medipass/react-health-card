@@ -31,7 +31,7 @@ const _formatDate = (date, format) => {
   return newDate.join('/');
 };
 
-export class Card extends Component {
+class Card extends Component {
   getFocusedClass = attribute => {
     const { focused } = this.props;
     return (attribute === focused) ? 'react-health-card--focused' : '';
@@ -46,7 +46,8 @@ export class Card extends Component {
 
   render = () => {
     const {
-      bgColor,
+      bgColorFront,
+      bgColorBack,
       logoUri,
       focused,
       isFlipped,
@@ -101,7 +102,7 @@ export class Card extends Component {
             )
           }
           >
-          <CardFront className="react-health-card__front" bgColor={bgColor}>
+          <CardFront className="react-health-card__front" bgColor={bgColorFront}>
             {
               logoPosition === 'front' && showLogo &&
               <Attribute className="react-health-card__attribute" attributeStyle={logoStyle}>
@@ -166,7 +167,7 @@ export class Card extends Component {
               </Attribute>
             }
           </CardFront>
-          <CardBack className="react-health-card__back">
+          <CardBack className="react-health-card__back" bgColor={bgColorBack}>
             { showSwipeBar && <div className="react-health-card__bar"/> }
             {
               logoPosition === 'back' && showLogo &&
@@ -239,7 +240,8 @@ export class Card extends Component {
 }
 
 Card.propTypes = {
-  bgColor: PropTypes.string,
+  bgColorFront: PropTypes.string,
+  bgColorBack: PropTypes.string,
   logoUri: PropTypes.string,
   focused: PropTypes.string,
   isFlipped: PropTypes.bool,
@@ -285,7 +287,8 @@ Card.propTypes = {
 };
 
 Card.defaultProps = {
-  bgColor: '#2053B1',
+  bgColorFront: '#2053B1',
+  bgColorBack: '#2053B1',
   isFlipped: false,
   focused: null,
   logoUri: images.default.logoUri,
