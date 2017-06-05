@@ -31,9 +31,9 @@ import HealthCard from 'react-health-card';
 
 ## Available Props
 
-| Property        | Type           | Default  | Description
-| ------------- |:-------------:| -----:|
-| bgColor | string | `#2053B1` | The background color of the card.
+| Property        | Type            | Default  | Description |
+| ----------------|:---------------:| :------------|:-------------|
+| bgColor         | string | `#2053B1` | The background color of the card. |
 | focused | string | `null` | The focused card attribute. Available: `null`, `rank`, `name`, `memberNumber`, `issueDate`, `issueNumber`, `cardNumber` 
 | isFlipped | boolean | `false` | Is the card flipped? 
 | type | string | `default` | Type of card.
