@@ -33,10 +33,10 @@ import HealthCard from 'react-health-card';
 
 | Property        | Type            | Default  | Description |
 | ----------------|:---------------:| :------------|:-------------|
-| bgColor         | string | `#2053B1` | The background color of the card. |
+| bgColorFront         | string | `#2053B1` | The background color of the front of the card. |
+| bgColorBack         | string | `#2053B1` | The background color of the back of the card. |
 | focused | string | `null` | The focused card attribute. Available: `null`, `rank`, `name`, `memberNumber`, `issueDate`, `issueNumber`, `cardNumber` 
 | isFlipped | boolean | `false` | Is the card flipped? 
-| type | string | `default` | Type of card.
 | logoUri | string | `null` | The logo of the card.
 | logoPosition | string | `front` | Position of the logo. Available: `front`, `back`
 | logoStyle | string | `right: 10%; top: 10%` | Style of the logo.
