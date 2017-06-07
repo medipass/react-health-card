@@ -107,7 +107,7 @@ class Card extends Component {
               logoPosition === 'front' && showLogo &&
               <Attribute className="react-health-card__attribute" attributeStyle={logoStyle}>
                 <img
-                  src={_get(images, `${type}.logoUri`) || logoUri}
+                  src={logoUri || _get(images, `${type}.logoUri`)}
                   className={classNames('react-health-card__logo', `react-health-card--${type}`)}
                   />
               </Attribute>
