@@ -16,6 +16,14 @@ const CardFront = styled.div`
 `;
 const CardBack = CardFront;
 
+const DEFAULT_LOGO_STYLE = 'right: 10%; top: 10%';
+const DEFAULT_ISSUE_DATE_STYLE = 'bottom: 15%; left: 65%;';
+const DEFAULT_ISSUE_NUMBER_STYLE = 'bottom: 15%; left: 10%;';
+const DEFAULT_CARD_NUMBER_STYLE = 'top: 20%; left: 10%;';
+const DEFAULT_MEMBER_NUMBER_STYLE = 'bottom: 15%; left: 10%;';
+const DEFAULT_NAME_STYLE = 'bottom: 40%; left: 20%;';
+const DEFAULT_RANK_STYLE = 'bottom: 40%; left: 10%;';
+
 const _formatDate = (date, format) => {
   const dateFormatArray = format.split('/');
   let startIndex = 0;
@@ -30,6 +38,14 @@ const _formatDate = (date, format) => {
 
   return newDate.join('/');
 };
+
+const _includesPositioning = styleText =>
+  styleText && (
+    styleText.includes('bottom') ||
+    styleText.includes('top') ||
+    styleText.includes('right') ||
+    styleText.includes('left')
+  );
 
 class Card extends Component {
   getFocusedClass = attribute => {
@@ -91,6 +107,15 @@ class Card extends Component {
       showName,
       showSwipeBar
     } = this.props;
+
+    const newLogoStyle = `${_includesPositioning(logoStyle) ? '' : DEFAULT_LOGO_STYLE}${logoStyle || ''}`;
+    const newIssueDateStyle = `${_includesPositioning(issueDateStyle) ? '' : DEFAULT_ISSUE_DATE_STYLE}${issueDateStyle || ''}`;
+    const newIssueNumberStyle = `${_includesPositioning(issueNumberStyle) ? '' : DEFAULT_ISSUE_NUMBER_STYLE}${issueNumberStyle || ''}`;
+    const newCardNumberStyle = `${_includesPositioning(cardNumberStyle) ? '' : DEFAULT_CARD_NUMBER_STYLE}${cardNumberStyle || ''}`;
+    const newMemberNumberStyle = `${_includesPositioning(memberNumberStyle) ? '' : DEFAULT_MEMBER_NUMBER_STYLE}${memberNumberStyle || ''}`;
+    const newNameStyle = `${_includesPositioning(nameStyle) ? '' : DEFAULT_NAME_STYLE}${nameStyle || ''}`;
+    const newRankStyle = `${_includesPositioning(rankStyle) ? '' : DEFAULT_RANK_STYLE}${rankStyle || ''}`;
+
     return (
       <div className="react-health-card__container">
         <div
@@ -105,7 +130,7 @@ class Card extends Component {
           <CardFront className="react-health-card__front" bgColor={bgColorFront}>
             {
               logoPosition === 'front' && showLogo &&
-              <Attribute className="react-health-card__attribute" attributeStyle={logoStyle}>
+              <Attribute className="react-health-card__attribute" attributeStyle={newLogoStyle}>
                 <img
                   src={logoUri || _get(images, `${type}.logoUri`)}
                   className={classNames('react-health-card__logo', `react-health-card--${type}`)}
@@ -116,7 +141,7 @@ class Card extends Component {
               rankPosition === 'front' && showRank &&
               <Attribute
                 className={classNames('react-health-card__attribute react-health-card__editable', this.getFocusedClass('rank'))}
-                attributeStyle={rankStyle}
+                attributeStyle={newRankStyle}
                 >
                 {_padEnd(rank, rankLength, '•')}
               </Attribute>
@@ -125,7 +150,7 @@ class Card extends Component {
               namePosition === 'front' && showName &&
               <Attribute
                 className={classNames('react-health-card__attribute react-health-card__editable', this.getFocusedClass('name'))}
-                attributeStyle={nameStyle}
+                attributeStyle={newNameStyle}
                 >
                 {name || namePlaceholder}
               </Attribute>
@@ -134,7 +159,7 @@ class Card extends Component {
               memberNumberPosition === 'front' && showMemberNumber &&
               <Attribute
                 className={classNames('react-health-card__attribute react-health-card__editable', this.getFocusedClass('memberNumber'))}
-                attributeStyle={memberNumberStyle}
+                attributeStyle={newMemberNumberStyle}
                 >
                 <div className="react-health-card__with-content" data-before={memberNumberTitle}>{_padEnd(memberNumber, memberNumberLength, '•')}</div>
               </Attribute>
@@ -143,7 +168,7 @@ class Card extends Component {
               issueDatePosition === 'front' && showIssueDate &&
               <Attribute
                 className={classNames('react-health-card__attribute react-health-card__editable', this.getFocusedClass('issueDate'))}
-                attributeStyle={issueDateStyle}
+                attributeStyle={newIssueDateStyle}
                 >
                 <div className="react-health-card__with-content" data-before={issueDateTitle}>{_formatDate(issueDate, issueDateFormat)}</div>
               </Attribute>
@@ -152,7 +177,7 @@ class Card extends Component {
               issueNumberPosition === 'front' && showIssueNumber &&
               <Attribute
                 className={classNames('react-health-card__attribute react-health-card__editable', this.getFocusedClass('issueNumber'))}
-                attributeStyle={issueNumberStyle}
+                attributeStyle={newIssueNumberStyle}
                 >
                 <div className="react-health-card__with-content" data-before={issueNumberTitle}>{_padEnd(issueNumber, issueNumberLength, '•')}</div>
               </Attribute>
@@ -161,7 +186,7 @@ class Card extends Component {
               cardNumberPosition === 'front' && showCardNumber &&
               <Attribute
                 className={classNames('react-health-card__attribute react-health-card__editable', this.getFocusedClass('cardNumber'))}
-                attributeStyle={cardNumberStyle}
+                attributeStyle={newCardNumberStyle}
                 >
                 <div className="react-health-card__with-content" data-before={cardNumberTitle}>{_padEnd(cardNumber, cardNumberLength, '•')}</div>
               </Attribute>
@@ -171,7 +196,7 @@ class Card extends Component {
             { showSwipeBar && <div className="react-health-card__bar"/> }
             {
               logoPosition === 'back' && showLogo &&
-              <Attribute className="react-health-card__attribute" attributeStyle={logoStyle}>
+              <Attribute className="react-health-card__attribute" attributeStyle={newLogoStyle}>
                 <img
                   src={_get(images, `${type}.logoUri`) || logoUri}
                   className={classNames('react-health-card__logo', `react-health-card--${type}`)}
@@ -182,7 +207,7 @@ class Card extends Component {
               rankPosition === 'back' && showRank &&
               <Attribute
                 className={classNames('react-health-card__attribute react-health-card__editable', this.getFocusedClass('rank'))}
-                attributeStyle={rankStyle}
+                attributeStyle={newRankStyle}
                 >
                 {_padEnd(rank, rankLength, '•')}
               </Attribute>
@@ -191,7 +216,7 @@ class Card extends Component {
               namePosition === 'back' && showName &&
               <Attribute
                 className={classNames('react-health-card__attribute react-health-card__editable', this.getFocusedClass('name'))}
-                attributeStyle={nameStyle}
+                attributeStyle={newNameStyle}
                 >
                 {name || namePlaceholder}
               </Attribute>
@@ -200,7 +225,7 @@ class Card extends Component {
               memberNumberPosition === 'back' && showMemberNumber &&
               <Attribute
                 className={classNames('react-health-card__attribute react-health-card__editable', this.getFocusedClass('memberNumber'))}
-                attributeStyle={memberNumberStyle}
+                attributeStyle={newMemberNumberStyle}
                 >
                 <div className="react-health-card__with-content" data-before={memberNumberTitle}>{_padEnd(memberNumber, memberNumberLength, '•')}</div>
               </Attribute>
@@ -209,7 +234,7 @@ class Card extends Component {
               issueDatePosition === 'back' && showIssueDate &&
               <Attribute
                 className={classNames('react-health-card__attribute react-health-card__editable', this.getFocusedClass('issueDate'))}
-                attributeStyle={issueDateStyle}
+                attributeStyle={newIssueDateStyle}
                 >
                 <div className="react-health-card__with-content" data-before={issueDateTitle}>{_formatDate(issueDate, issueDateFormat)}</div>
               </Attribute>
@@ -218,7 +243,7 @@ class Card extends Component {
               issueNumberPosition === 'back' && showIssueNumber &&
               <Attribute
                 className={classNames('react-health-card__attribute react-health-card__editable', this.getFocusedClass('issueNumber'))}
-                attributeStyle={issueNumberStyle}
+                attributeStyle={newIssueNumberStyle}
                 >
                 <div className="react-health-card__with-content" data-before={issueNumberTitle}>{_padEnd(issueNumber, issueNumberLength, '•')}</div>
               </Attribute>
@@ -227,7 +252,7 @@ class Card extends Component {
               cardNumberPosition === 'back' && showCardNumber &&
               <Attribute
                 className={classNames('react-health-card__attribute react-health-card__editable', this.getFocusedClass('cardNumber'))}
-                attributeStyle={cardNumberStyle}
+                attributeStyle={newCardNumberStyle}
                 >
                 <div className="react-health-card__with-content" data-before={cardNumberTitle}>{_padEnd(cardNumber, cardNumberLength, '•')}</div>
               </Attribute>
@@ -301,47 +326,26 @@ Card.defaultProps = {
   issueNumber: null,
   issueDate: '',
   issueDateFormat: 'DD/MM/YYYY',
-  logoStyle: `
-    right: 10%;
-    top: 10%;
-  `,
+  logoStyle: null,
   logoPosition: 'front',
-  issueDateStyle: `
-    bottom: 15%;
-    left: 65%;
-  `,
+  issueDateStyle: null,
   issueDatePosition: 'front',
   issueDateTitle: 'Issue date',
-  issueNumberStyle: `
-    left: 10%;
-    bottom: 15%;
-  `,
+  issueNumberStyle: null,
   issueNumberPosition: 'back',
   issueNumberTitle: 'Issue number',
   issueNumberLength: 2,
-  cardNumberStyle: `
-    left: 10%;
-    top: 20%;
-  `,
+  cardNumberStyle: null,
   cardNumberPosition: 'front',
   cardNumberTitle: 'Card number',
   cardNumberLength: 8,
-  memberNumberStyle: `
-    bottom: 15%;
-    left: 10%;
-  `,
+  memberNumberStyle: null,
   memberNumberPosition: 'front',
   memberNumberTitle: 'Member number',
   memberNumberLength: 8,
-  nameStyle: `
-    bottom: 40%;
-    left: 20%;
-  `,
+  nameStyle: null,
   namePosition: 'front',
-  rankStyle: `
-    bottom: 40%;
-    left: 10%;
-  `,
+  rankStyle: null,
   rankPosition: 'front',
   rankLength: 2,
   showLogo: true,
