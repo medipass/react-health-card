@@ -64,6 +64,7 @@ import HealthCard from 'react-health-card';
 | rankPosition | string | `front` | Position of the card rank. Available: `front`, `back`
 | rankLength | number | `2` | Card rank length
 | rankStyle | string | `left: 10%; bottom: 40%` | Style of the card rank element (CSS)
+| rankTitle | string | `null` | Card rank title.
 | name | string | `null` | The card holder's name.
 | namePlaceholder | string | `FULL NAME` | Placeholder for card holder's name.
 | namePosition | string | `front` | Position of the card holder's name. Available: `front`, `back`

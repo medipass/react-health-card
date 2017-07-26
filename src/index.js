@@ -80,6 +80,7 @@ class Card extends Component {
       rankPosition,
       rankStyle,
       rankLength,
+      rankTitle,
       namePosition,
       nameStyle,
       memberNumberPosition,
@@ -143,7 +144,7 @@ class Card extends Component {
                 className={classNames('react-health-card__attribute react-health-card__editable', this.getFocusedClass('rank'))}
                 attributeStyle={newRankStyle}
                 >
-                {_padEnd(rank, rankLength, '•')}
+                <div className="react-health-card__with-content" data-before={rankTitle}>{_padEnd(rank, rankLength, '•')}</div>
               </Attribute>
             }
             {
@@ -209,7 +210,7 @@ class Card extends Component {
                 className={classNames('react-health-card__attribute react-health-card__editable', this.getFocusedClass('rank'))}
                 attributeStyle={newRankStyle}
                 >
-                {_padEnd(rank, rankLength, '•')}
+                <div className="react-health-card__with-content" data-before={rankTitle}>{_padEnd(rank, rankLength, '•')}</div>
               </Attribute>
             }
             {
@@ -283,6 +284,7 @@ Card.propTypes = {
   rankPosition: PropTypes.string,
   rankStyle: PropTypes.string,
   rankLength: PropTypes.number,
+  rankTitle: PropTypes.string,
   namePosition: PropTypes.string,
   nameStyle: PropTypes.string,
   memberNumberPosition: PropTypes.string,
@@ -348,6 +350,7 @@ Card.defaultProps = {
   rankStyle: null,
   rankPosition: 'front',
   rankLength: 2,
+  rankTitle: null,
   showLogo: true,
   showCardNumber: true,
   showIssueDate: true,
