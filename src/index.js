@@ -133,7 +133,7 @@ class Card extends Component {
               logoPosition === 'front' && showLogo &&
               <Attribute className="react-health-card__attribute" attributeStyle={newLogoStyle}>
                 <img
-                  src={logoUri || _get(images, `${type}.logoUri`)}
+                  src={logoUri || _get(images, `default.logoUri`)}
                   className={classNames('react-health-card__logo', `react-health-card--${type}`)}
                   />
               </Attribute>
@@ -199,7 +199,7 @@ class Card extends Component {
               logoPosition === 'back' && showLogo &&
               <Attribute className="react-health-card__attribute" attributeStyle={newLogoStyle}>
                 <img
-                  src={_get(images, `${type}.logoUri`) || logoUri}
+                  src={_get(images, `default.logoUri`) || logoUri}
                   className={classNames('react-health-card__logo', `react-health-card--${type}`)}
                   />
               </Attribute>
