@@ -8,11 +8,16 @@ import _padEnd from 'lodash/padEnd';
 
 import images from './card-images';
 
-const Attribute = styled.div`${props => props.attributeStyle}`;
+const Attribute = styled.div`
+  ${props => props.attributeStyle};
+`;
 const CardFront = styled.div`
-  ${props => props.bgColor ? `
-    background: linear-gradient(to right, ${lighten(0.2, props.bgColor)}, ${props.bgColor}) !important; 
-  ` : ''}
+  ${props =>
+    props.bgColor
+      ? `
+    background: linear-gradient(to right, ${lighten(0.2, props.bgColor)}, ${props.bgColor}) !important;
+  `
+      : ''};
 `;
 const CardBack = CardFront;
 
@@ -40,23 +45,22 @@ const _formatDate = (date, format) => {
 };
 
 const _includesPositioning = styleText =>
-  styleText && (
-    styleText.includes('bottom') ||
+  styleText &&
+  (styleText.includes('bottom') ||
     styleText.includes('top') ||
     styleText.includes('right') ||
-    styleText.includes('left')
-  );
+    styleText.includes('left'));
 
 class Card extends Component {
   getFocusedClass = attribute => {
     const { focused } = this.props;
-    return (attribute === focused) ? 'react-health-card--focused' : '';
-  }
+    return attribute === focused ? 'react-health-card--focused' : '';
+  };
 
   shouldCardBeFlipped = focused => {
     const position = _get(this.props, `${focused}Position`);
     return position === 'back';
-  }
+  };
 
   handleToggleFlipCard = () => this.setState({ isFlipped: !this.state.isFlipped });
 
@@ -110,159 +114,223 @@ class Card extends Component {
     } = this.props;
 
     const newLogoStyle = `${_includesPositioning(logoStyle) ? '' : DEFAULT_LOGO_STYLE}${logoStyle || ''}`;
-    const newIssueDateStyle = `${_includesPositioning(issueDateStyle) ? '' : DEFAULT_ISSUE_DATE_STYLE}${issueDateStyle || ''}`;
-    const newIssueNumberStyle = `${_includesPositioning(issueNumberStyle) ? '' : DEFAULT_ISSUE_NUMBER_STYLE}${issueNumberStyle || ''}`;
-    const newCardNumberStyle = `${_includesPositioning(cardNumberStyle) ? '' : DEFAULT_CARD_NUMBER_STYLE}${cardNumberStyle || ''}`;
-    const newMemberNumberStyle = `${_includesPositioning(memberNumberStyle) ? '' : DEFAULT_MEMBER_NUMBER_STYLE}${memberNumberStyle || ''}`;
+    const newIssueDateStyle = `${
+      _includesPositioning(issueDateStyle) ? '' : DEFAULT_ISSUE_DATE_STYLE
+    }${issueDateStyle || ''}`;
+    const newIssueNumberStyle = `${
+      _includesPositioning(issueNumberStyle) ? '' : DEFAULT_ISSUE_NUMBER_STYLE
+    }${issueNumberStyle || ''}`;
+    const newCardNumberStyle = `${
+      _includesPositioning(cardNumberStyle) ? '' : DEFAULT_CARD_NUMBER_STYLE
+    }${cardNumberStyle || ''}`;
+    const newMemberNumberStyle = `${
+      _includesPositioning(memberNumberStyle) ? '' : DEFAULT_MEMBER_NUMBER_STYLE
+    }${memberNumberStyle || ''}`;
     const newNameStyle = `${_includesPositioning(nameStyle) ? '' : DEFAULT_NAME_STYLE}${nameStyle || ''}`;
     const newRankStyle = `${_includesPositioning(rankStyle) ? '' : DEFAULT_RANK_STYLE}${rankStyle || ''}`;
 
     return (
       <div className="react-health-card__container">
         <div
-          className={
-            classNames(
-              'react-health-card',
-              type ? `react-health-card--${type}` : '',
-              (isFlipped || this.shouldCardBeFlipped(focused)) ? 'react-health-card--flipped' : ''
-            )
-          }
-          >
+          className={classNames(
+            'react-health-card',
+            type ? `react-health-card--${type}` : '',
+            isFlipped || this.shouldCardBeFlipped(focused) ? 'react-health-card--flipped' : ''
+          )}
+        >
           <CardFront className="react-health-card__front" bgColor={bgColorFront}>
-            {
-              logoPosition === 'front' && showLogo &&
-              <Attribute className="react-health-card__attribute" attributeStyle={newLogoStyle}>
-                <img
-                  src={logoUri || _get(images, `default.logoUri`)}
-                  className={classNames('react-health-card__logo', `react-health-card--${type}`)}
+            {logoPosition === 'front' &&
+              showLogo && (
+                <Attribute className="react-health-card__attribute" attributeStyle={newLogoStyle}>
+                  <img
+                    src={logoUri || _get(images, `default.logoUri`)}
+                    className={classNames('react-health-card__logo', `react-health-card--${type}`)}
+                    alt="logo"
                   />
-              </Attribute>
-            }
-            {
-              rankPosition === 'front' && showRank &&
-              <Attribute
-                className={classNames('react-health-card__attribute react-health-card__editable', this.getFocusedClass('rank'))}
-                attributeStyle={newRankStyle}
+                </Attribute>
+              )}
+            {rankPosition === 'front' &&
+              showRank && (
+                <Attribute
+                  className={classNames(
+                    'react-health-card__attribute react-health-card__editable',
+                    this.getFocusedClass('rank')
+                  )}
+                  attributeStyle={newRankStyle}
                 >
-                <div className="react-health-card__with-content" data-before={rankTitle}>{_padEnd(rank, rankLength, '•')}</div>
-              </Attribute>
-            }
-            {
-              namePosition === 'front' && showName &&
-              <Attribute
-                className={classNames('react-health-card__attribute react-health-card__editable', this.getFocusedClass('name'))}
-                attributeStyle={newNameStyle}
+                  <div className="react-health-card__with-content" data-before={rankTitle}>
+                    {_padEnd(rank, rankLength, '•')}
+                  </div>
+                </Attribute>
+              )}
+            {namePosition === 'front' &&
+              showName && (
+                <Attribute
+                  className={classNames(
+                    'react-health-card__attribute react-health-card__editable',
+                    this.getFocusedClass('name')
+                  )}
+                  attributeStyle={newNameStyle}
                 >
-                {name || namePlaceholder}
-              </Attribute>
-            }
-            {
-              memberNumberPosition === 'front' && showMemberNumber &&
-              <Attribute
-                className={classNames('react-health-card__attribute react-health-card__editable', this.getFocusedClass('memberNumber'))}
-                attributeStyle={newMemberNumberStyle}
+                  {name || namePlaceholder}
+                </Attribute>
+              )}
+            {memberNumberPosition === 'front' &&
+              showMemberNumber && (
+                <Attribute
+                  className={classNames(
+                    'react-health-card__attribute react-health-card__editable',
+                    this.getFocusedClass('memberNumber')
+                  )}
+                  attributeStyle={newMemberNumberStyle}
                 >
-                <div className="react-health-card__with-content" data-before={memberNumberTitle}>{_padEnd(memberNumber, memberNumberLength, '•')}</div>
-              </Attribute>
-            }
-            {
-              issueDatePosition === 'front' && showIssueDate &&
-              <Attribute
-                className={classNames('react-health-card__attribute react-health-card__editable', this.getFocusedClass('issueDate'))}
-                attributeStyle={newIssueDateStyle}
+                  <div className="react-health-card__with-content" data-before={memberNumberTitle}>
+                    {_padEnd(memberNumber, memberNumberLength, '•')}
+                  </div>
+                </Attribute>
+              )}
+            {issueDatePosition === 'front' &&
+              showIssueDate && (
+                <Attribute
+                  className={classNames(
+                    'react-health-card__attribute react-health-card__editable',
+                    this.getFocusedClass('issueDate')
+                  )}
+                  attributeStyle={newIssueDateStyle}
                 >
-                <div className="react-health-card__with-content" data-before={issueDateTitle}>{_formatDate(issueDate, issueDateFormat)}</div>
-              </Attribute>
-            }
-            {
-              issueNumberPosition === 'front' && showIssueNumber &&
-              <Attribute
-                className={classNames('react-health-card__attribute react-health-card__editable', this.getFocusedClass('issueNumber'))}
-                attributeStyle={newIssueNumberStyle}
+                  <div className="react-health-card__with-content" data-before={issueDateTitle}>
+                    {_formatDate(issueDate, issueDateFormat)}
+                  </div>
+                </Attribute>
+              )}
+            {issueNumberPosition === 'front' &&
+              showIssueNumber && (
+                <Attribute
+                  className={classNames(
+                    'react-health-card__attribute react-health-card__editable',
+                    this.getFocusedClass('issueNumber')
+                  )}
+                  attributeStyle={newIssueNumberStyle}
                 >
-                <div className="react-health-card__with-content" data-before={issueNumberTitle}>{_padEnd(issueNumber, issueNumberLength, '•')}</div>
-              </Attribute>
-            }
-            {
-              cardNumberPosition === 'front' && showCardNumber &&
-              <Attribute
-                className={classNames('react-health-card__attribute react-health-card__editable', this.getFocusedClass('cardNumber'))}
-                attributeStyle={newCardNumberStyle}
+                  <div className="react-health-card__with-content" data-before={issueNumberTitle}>
+                    {_padEnd(issueNumber, issueNumberLength, '•')}
+                  </div>
+                </Attribute>
+              )}
+            {cardNumberPosition === 'front' &&
+              showCardNumber && (
+                <Attribute
+                  className={classNames(
+                    'react-health-card__attribute react-health-card__editable',
+                    this.getFocusedClass('cardNumber')
+                  )}
+                  attributeStyle={newCardNumberStyle}
                 >
-                <div className="react-health-card__with-content" data-before={cardNumberTitle}>{_padEnd(cardNumber, cardNumberLength, '•')}</div>
-              </Attribute>
-            }
+                  <div className="react-health-card__with-content" data-before={cardNumberTitle}>
+                    {_padEnd(cardNumber, cardNumberLength, '•')}
+                  </div>
+                </Attribute>
+              )}
           </CardFront>
           <CardBack className="react-health-card__back" bgColor={bgColorBack}>
-            { showSwipeBar && <div className="react-health-card__bar"/> }
-            {
-              logoPosition === 'back' && showLogo &&
-              <Attribute className="react-health-card__attribute" attributeStyle={newLogoStyle}>
-                <img
-                  src={_get(images, `default.logoUri`) || logoUri}
-                  className={classNames('react-health-card__logo', `react-health-card--${type}`)}
+            {showSwipeBar && <div className="react-health-card__bar" />}
+            {logoPosition === 'back' &&
+              showLogo && (
+                <Attribute className="react-health-card__attribute" attributeStyle={newLogoStyle}>
+                  <img
+                    src={_get(images, `default.logoUri`) || logoUri}
+                    className={classNames('react-health-card__logo', `react-health-card--${type}`)}
+                    alt="logo"
                   />
-              </Attribute>
-            }
-            {
-              rankPosition === 'back' && showRank &&
-              <Attribute
-                className={classNames('react-health-card__attribute react-health-card__editable', this.getFocusedClass('rank'))}
-                attributeStyle={newRankStyle}
+                </Attribute>
+              )}
+            {rankPosition === 'back' &&
+              showRank && (
+                <Attribute
+                  className={classNames(
+                    'react-health-card__attribute react-health-card__editable',
+                    this.getFocusedClass('rank')
+                  )}
+                  attributeStyle={newRankStyle}
                 >
-                <div className="react-health-card__with-content" data-before={rankTitle}>{_padEnd(rank, rankLength, '•')}</div>
-              </Attribute>
-            }
-            {
-              namePosition === 'back' && showName &&
-              <Attribute
-                className={classNames('react-health-card__attribute react-health-card__editable', this.getFocusedClass('name'))}
-                attributeStyle={newNameStyle}
+                  <div className="react-health-card__with-content" data-before={rankTitle}>
+                    {_padEnd(rank, rankLength, '•')}
+                  </div>
+                </Attribute>
+              )}
+            {namePosition === 'back' &&
+              showName && (
+                <Attribute
+                  className={classNames(
+                    'react-health-card__attribute react-health-card__editable',
+                    this.getFocusedClass('name')
+                  )}
+                  attributeStyle={newNameStyle}
                 >
-                {name || namePlaceholder}
-              </Attribute>
-            }
-            {
-              memberNumberPosition === 'back' && showMemberNumber &&
-              <Attribute
-                className={classNames('react-health-card__attribute react-health-card__editable', this.getFocusedClass('memberNumber'))}
-                attributeStyle={newMemberNumberStyle}
+                  {name || namePlaceholder}
+                </Attribute>
+              )}
+            {memberNumberPosition === 'back' &&
+              showMemberNumber && (
+                <Attribute
+                  className={classNames(
+                    'react-health-card__attribute react-health-card__editable',
+                    this.getFocusedClass('memberNumber')
+                  )}
+                  attributeStyle={newMemberNumberStyle}
                 >
-                <div className="react-health-card__with-content" data-before={memberNumberTitle}>{_padEnd(memberNumber, memberNumberLength, '•')}</div>
-              </Attribute>
-            }
-            {
-              issueDatePosition === 'back' && showIssueDate &&
-              <Attribute
-                className={classNames('react-health-card__attribute react-health-card__editable', this.getFocusedClass('issueDate'))}
-                attributeStyle={newIssueDateStyle}
+                  <div className="react-health-card__with-content" data-before={memberNumberTitle}>
+                    {_padEnd(memberNumber, memberNumberLength, '•')}
+                  </div>
+                </Attribute>
+              )}
+            {issueDatePosition === 'back' &&
+              showIssueDate && (
+                <Attribute
+                  className={classNames(
+                    'react-health-card__attribute react-health-card__editable',
+                    this.getFocusedClass('issueDate')
+                  )}
+                  attributeStyle={newIssueDateStyle}
                 >
-                <div className="react-health-card__with-content" data-before={issueDateTitle}>{_formatDate(issueDate, issueDateFormat)}</div>
-              </Attribute>
-            }
-            {
-              issueNumberPosition === 'back' && showIssueNumber &&
-              <Attribute
-                className={classNames('react-health-card__attribute react-health-card__editable', this.getFocusedClass('issueNumber'))}
-                attributeStyle={newIssueNumberStyle}
+                  <div className="react-health-card__with-content" data-before={issueDateTitle}>
+                    {_formatDate(issueDate, issueDateFormat)}
+                  </div>
+                </Attribute>
+              )}
+            {issueNumberPosition === 'back' &&
+              showIssueNumber && (
+                <Attribute
+                  className={classNames(
+                    'react-health-card__attribute react-health-card__editable',
+                    this.getFocusedClass('issueNumber')
+                  )}
+                  attributeStyle={newIssueNumberStyle}
                 >
-                <div className="react-health-card__with-content" data-before={issueNumberTitle}>{_padEnd(issueNumber, issueNumberLength, '•')}</div>
-              </Attribute>
-            }
-            {
-              cardNumberPosition === 'back' && showCardNumber &&
-              <Attribute
-                className={classNames('react-health-card__attribute react-health-card__editable', this.getFocusedClass('cardNumber'))}
-                attributeStyle={newCardNumberStyle}
+                  <div className="react-health-card__with-content" data-before={issueNumberTitle}>
+                    {_padEnd(issueNumber, issueNumberLength, '•')}
+                  </div>
+                </Attribute>
+              )}
+            {cardNumberPosition === 'back' &&
+              showCardNumber && (
+                <Attribute
+                  className={classNames(
+                    'react-health-card__attribute react-health-card__editable',
+                    this.getFocusedClass('cardNumber')
+                  )}
+                  attributeStyle={newCardNumberStyle}
                 >
-                <div className="react-health-card__with-content" data-before={cardNumberTitle}>{_padEnd(cardNumber, cardNumberLength, '•')}</div>
-              </Attribute>
-            }
+                  <div className="react-health-card__with-content" data-before={cardNumberTitle}>
+                    {_padEnd(cardNumber, cardNumberLength, '•')}
+                  </div>
+                </Attribute>
+              )}
           </CardBack>
         </div>
       </div>
     );
-  }
+  };
 }
 
 Card.propTypes = {
