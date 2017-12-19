@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { lighten } from 'polished';
 import styled from 'styled-components';
 import _get from 'lodash/get';
 import _padEnd from 'lodash/padEnd';
@@ -15,7 +14,7 @@ const CardFront = styled.div`
   ${props =>
     props.bgColor
       ? `
-    background: linear-gradient(to right, ${lighten(0.2, props.bgColor)}, ${props.bgColor}) !important;
+    background: ${props.bgColor} !important;
   `
       : ''};
 `;
